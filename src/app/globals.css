@@ -6,6 +6,83 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.cursor-pointer:hover {
+  cursor: pointer;
+}
+
+/* Global Clerk */
+.cl-internal-phfxlr {
+  height: 100vh !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Login Page */
+.cl-internal-7hb1uf, .cl-internal-19oafnx {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+.cl-internal-1p733cp, .cl-internal-11f0qyb {
+  box-shadow: none !important;
+}
+.cl-internal-4x6jej, .cl-internal-piyvrh, .cl-internal-11f0qyb, .cl-internal-w4f4gh, .cl-internal-1p733cp {
+  background: none !important;
+}
+.cl-internal-1dauvpw {
+  border: none !important;
+}
+
+/* Organization Page */
+.cl-rootBox.cl-organizationProfile-root.cl-internal-phfxlr {
+  height: 100% !important;
+  width: 100% !important;
+}
+.cl-cardBox.cl-internal-10b3z8w, .cl-cardBox.cl-internal-1082kd {
+  display: flex !important;
+  max-width: none;
+  box-shadow: none !important;
+  height: 100% !important;
+  width: 100% !important;
+  border-radius: 0 !important;
+}
+
+/* Org Selector */
+.cl-card.cl-internal-6wdb8o, .cl-card.cl-internal-119mn6g {
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* Account Page */
+.cl-rootBox.cl-userProfile-root.cl-internal-phfxlr {
+  height: 100% !important;
+  width: 100% !important;
+  display: block !important;
+}
+.cl-cardBox.cl-internal-17dpwu0, .cl-cardBox.cl-internal-h1ijb9 {
+  max-width: none;
+  box-shadow: none !important;
+  height: 100% !important;
+  width: 100% !important;
+  border-radius: 0 !important;
+}
+.cl-scrollBox.cl-internal-c2xpfh, .cl-scrollBox.cl-internal-kgbfts {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+.cl-navbar.cl-internal-13lvar6, .cl-internal-13u79ez, .cl-internal-kgbfts, .cl-navbar.cl-internal-1efiaa8 {
+  background: none !important;
+}
+.cl-scrollBox.cl-internal-c2xpfh {
+  border-left: 1px solid hsl(240 5.9% 90%);
+}
+
+.cl-internal-kgbfts {
+  border-left: 1px solid hsl(220 6.4% 18.4%);
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -32,10 +109,18 @@ body {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+    --radius: 0rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
-    --background: 220, 10%, 11.8%;
+    --background: 220 10% 12%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -43,22 +128,30 @@ body {
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
-    --secondary: 220, 6.4%, 18.4%;
+    --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 220, 6.4%, 18.4%;
+    --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
-    --accent: 220, 6.4%, 18.4%;
+    --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 220, 6.4%, 18.4%;
-    --input: 220, 6.4%, 18.4%;
+    --border: 220 6% 18%;
+    --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --sidebar-background: 220 10% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 6% 18%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 220 6% 18%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 

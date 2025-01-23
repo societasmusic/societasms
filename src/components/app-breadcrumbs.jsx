@@ -10,7 +10,7 @@ import {
 
 export default function Breadcrumbs({ crumbs }) {
     return (
-        <Breadcrumb>
+        <Breadcrumb className="h-16 border-b flex items-center px-6">
             <BreadcrumbList>
                 {crumbs.map((crumb, index) => (
                     <React.Fragment key={index}>

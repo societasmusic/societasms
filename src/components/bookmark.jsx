@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 
 export default function Bookmark() {
     return (
-        <Button variant="ghost" className="rounded-none p-6" size="icon">
+        <Button variant="ghost" className="rounded-none h-16 w-12" size="icon">
             <BookmarkIcon/>
         </Button>
     )

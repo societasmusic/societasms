@@ -11,7 +11,7 @@ export default function ThemeSwitcher() {
     useEffect(() => setMounted(true), [])
     if (!mounted) return null
     return (
-        <Button variant="ghost" className="rounded-none p-6" size="icon" onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+        <Button variant="ghost" className="rounded-none h-16 w-12" size="icon" onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
             {theme === "light" ? <Sun/> : <Moon/>}
         </Button>
     )
