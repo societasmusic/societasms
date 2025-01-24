@@ -8,6 +8,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata = {
 	title: "Societas Management System",
@@ -30,6 +31,7 @@ export default async function RootLayout({ children }) {
 									</SidebarInset>
 								</SidebarProvider>
 							</TooltipProvider>
+							<Toaster/>
 					</ThemeProvider>
 				</body>
 			</html>

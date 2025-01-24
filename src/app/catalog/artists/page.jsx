@@ -7,26 +7,31 @@ import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 
 async function getData() {
-    const { getToken } = await auth();
-    const token = await getToken()
-    if (!token) throw new Error("User is not authenticated.")
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/labels`, {
-        method: "GET",
-        headers: {
-            "content-type": "application/json",
-            "Authorization": `Bearer ${token}`,
-        },
-        cache: "no-store",
-    })
-    if (!response.ok) throw new Error("Failed to fetch data.")
-    return response.json();
+    try {
+        const { getToken } = await auth();
+        const token = await getToken()
+        if (!token) throw new Error("User is not authenticated.")
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/artists`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            cache: "no-store",
+        })
+        if (!response.ok) throw new Error("Failed to fetch data.")
+        return response.json();
+    } catch (err) {
+        console.log(err)
+        return []
+    }
 }
 
-export default async function RecordLabels() {
+export default async function Artists() {
     const crumbs = [
         { title: "Dashboard", href: "/" },
         { title: "Catalog", href: "/catalog" },
-        { title: "Record Labels", href: "/catalog/labels", currentPage: true },
+        { title: "Artists", href: "/catalog/artists", currentPage: true },
     ];
     const data = await getData();
     return (
@@ -34,13 +39,13 @@ export default async function RecordLabels() {
             <Breadcrumbs crumbs={crumbs} />
             <div className="h-16 border-b flex justify-between items-center pl-6">
                 <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight">
-                    Record Labels
+                    Artists
                 </h2>
                 <div className="flex items-center gap-3 px-6">
-                    <Link href="/catalog/labels/create">
+                    <Link href="/catalog/artists/create">
                         <Button>
                             <CirclePlus />
-                            Create New Record Label
+                            Create New Artist
                         </Button>
                     </Link>
                 </div>

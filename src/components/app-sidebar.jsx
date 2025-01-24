@@ -17,7 +17,7 @@ export function AppSidebar(props) {
                     <SidebarMenuItem>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <SidebarMenuButton size="lg" className="border-b h-16 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground rounded-none">
+                                <SidebarMenuButton size="lg" className="border-b h-16 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground rounded-none px-3">
                                 <Avatar className="h-8 w-8 rounded-full">
                                     <AvatarImage src={props.avatar} alt={props.username} />
                                     <AvatarFallback className="rounded-full">{props.username.slice(0,1)}</AvatarFallback>

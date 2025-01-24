@@ -50,7 +50,7 @@ export function DataTable({
                 onChange={(event) =>
                     table.getColumn("name")?.setFilterValue(event.target.value)
                 }
-                className="shadow-none border-none h-16 px-6"
+                className="shadow-none border-none h-16 px-6 z-[999]"
             />
             <div className="flex">
                 <Button variant="outline" className="h-[63px] border-0 shadow-none px-6 border-l" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
