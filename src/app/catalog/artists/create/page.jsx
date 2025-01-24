@@ -1,10 +1,11 @@
 "use client"
 
 import Breadcrumbs from "@/components/app-breadcrumbs"
+import CreateArtist from "@/components/forms/create-artist"
 import CreateLabel from "@/components/forms/create-label"
 import { Info } from "lucide-react"
 
-export default function CreateArtist() {
+export default function CreateNewArtist() {
     const crumbs = [
         { title: "Dashboard", href: "/" },
         { title: "Catalog", href: "/catalog" },
@@ -21,7 +22,7 @@ export default function CreateArtist() {
                 <Info size={18}/>
                 <span>Record label names may not be edited after they are associated with a release.</span>
             </div> */}
-            {/* <CreateLabel/> */}
+            <CreateArtist/>
         </>
     )
 }
