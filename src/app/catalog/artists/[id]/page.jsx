@@ -6,16 +6,16 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import DeleteLabel from "@/components/forms/delete-label";
+import DeleteArtist from "@/components/forms/delete-artist";
 
-export default async function ViewRecordLabel({ params }) {
+export default async function ViewArtist({ params }) {
     try {
         async function getData() {
             const { id } = await params
             const { getToken } = await auth();
             const token = await getToken()
             if (!token) throw new Error("User is not authenticated.")
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/labels/${id}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/artists/${id}`, {
                 method: "GET",
                 headers: { "content-type": "application/json", "Authorization": `Bearer ${token}` },
                 cache: "no-store",
@@ -23,26 +23,23 @@ export default async function ViewRecordLabel({ params }) {
             if (!response.ok) throw new Error("Failed to fetch data.")
             return response.json();
         }
-        const recordlabel = await getData()
+        const artist = await getData()
         const crumbs = [
             { title: "Dashboard", href: "/" },
             { title: "Catalog", href: "/catalog" },
-            { title: "Record Labels", href: "/catalog/labels" },
-            { title: recordlabel.name, href: `/catalog/labels/${recordlabel._id}`, currentPage: true },
+            { title: "Artists", href: "/catalog/artists" },
+            { title: artist.name, href: `/catalog/artists/${artist._id}`, currentPage: true },
         ];
         return (
             <>
                 <Breadcrumbs crumbs={crumbs} />
                 <div className="h-16 border-b flex justify-between items-center pl-6">
                     <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight">
-                        {recordlabel.name}
+                        {artist.name}
                     </h2>
                     <div className="flex items-center gap-3 px-6">
-                        <Link href={`/catalog/labels/${recordlabel._id}/update`}>
-                            <Button>
-                                <SquarePen/>
-                                Update Record Label
-                            </Button>
+                        <Link href={`/catalog/artists/${artist._id}/update`}>
+                            <Button><SquarePen/>Update Artist</Button>
                         </Link>
                         <Dialog>
                             <DialogTrigger asChild>
@@ -55,7 +52,7 @@ export default async function ViewRecordLabel({ params }) {
                                         This action cannot be undone.
                                     </DialogDescription>
                                 </DialogHeader>
-                                <DeleteLabel id={recordlabel._id}/>
+                                <DeleteArtist id={artist._id}/>
                             </DialogContent>
                         </Dialog>
                     </div>
@@ -92,19 +89,35 @@ export default async function ViewRecordLabel({ params }) {
                 </div>
                 <div className="h-48 border-b grid grid-cols-2 divide-x">
                     <div className="p-6">
-                        Record Label Name: <span>{recordlabel.name}</span><br/>
-                        DDEX DPID: <span className="font-mono">{recordlabel.dpid ? recordlabel.dpid : "None"}</span><br/>
-                        ISNI: <span className="font-mono">{recordlabel.isni ? recordlabel.isni : "None"}</span>
+                        Artist Name: <span>{artist.name}</span><br/>
+                        PRO Affiliation: <span>{artist.pro ? artist.pro : "None"}</span><br/>
+                        IPI: <span className="font-mono">{artist.ipi ? artist.ipi : "None"}</span><br/>
+                        ISNI: <span className="font-mono">{artist.isni ? artist.isni : "None"}</span><br/>
                     </div>
                     <div className="p-6">
-                        Document ID: <span className="font-mono">{recordlabel._id}</span><br/>
-                        Created At: <span className="font-mono">{recordlabel.createdAt}</span><br/>
-                        Updated At: <span className="font-mono">{recordlabel.updatedAt}</span>
+                        Document ID: <span className="font-mono">{artist._id}</span><br/>
+                        Created At: <span className="font-mono">{artist.createdAt}</span><br/>
+                        Updated At: <span className="font-mono">{artist.updatedAt}</span>
                     </div>
                 </div>
+                {(artist.dspProfiles.spotify || artist.dspProfiles.appleMusic) && (
+                    <div className="h-16 border-b">
+                        {artist.dspProfiles.spotify && (
+                            <Link href={artist.dspProfiles.spotify} target="_blank">
+                                <Button variant="ghost" size="icon" style={{fontSize: 1 + "rem"}} className="h-16 w-16 border-r"><i className="bi bi-spotify"></i></Button>
+                            </Link>
+                        )}
+                        {artist.dspProfiles.appleMusic && (
+                            <Link href={artist.dspProfiles.appleMusic} target="_blank">
+                                <Button variant="ghost" size="icon" style={{fontSize: 1 + "rem"}} className="h-16 w-16 border-r"><i className="bi bi-apple"></i></Button>
+                            </Link>
+                        )}
+                    </div>
+                )}
             </>
         );
     } catch (err) {
-        redirect("/catalog/labels")
+        console.log(err)
+        redirect("/catalog/artists")
     }
 }

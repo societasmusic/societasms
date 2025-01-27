@@ -6,6 +6,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.col-span-12 {
+  grid-column: span 12 / span 12 !important
+}
+
 .cursor-pointer:hover {
   cursor: pointer;
 }
@@ -134,7 +138,7 @@ body {
     --muted-foreground: 240 5% 64.9%;
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 40.0%;
     --destructive-foreground: 0 0% 98%;
     --border: 220 6% 18%;
     --input: 220 6% 18%;

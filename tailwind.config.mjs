@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const { fontFamily } = require("tailwindcss/defaultTheme");
+
 export default {
     darkMode: ["class"],
     content: [
@@ -8,7 +11,7 @@ export default {
   ],
   theme: {
   	extend: {
-  		colors: {
+		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -64,7 +67,11 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		  fontFamily: {
+			sans: ["GeistSans", ...fontFamily.sans],
+			mono: ["GeistMono", ...fontFamily.mono],
+		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

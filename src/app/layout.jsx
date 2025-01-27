@@ -1,4 +1,5 @@
 import "./globals.css"
+import "bootstrap-icons/font/bootstrap-icons.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import Header from "@/components/header";

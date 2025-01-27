@@ -1,7 +1,5 @@
 "use client"
-import {
-  useState
-} from "react"
+
 import {
   toast
 } from "sonner"
@@ -30,7 +28,6 @@ import {
 import {
   Input
 } from "@/components/ui/input"
-import LocationSelector from "@/components/ui/location-input"
 import {
   Command,
   CommandEmpty,
@@ -48,20 +45,21 @@ import {
   Check,
   ChevronsUpDown
 } from "lucide-react"
+import { useAuth } from "@clerk/nextjs"
+import { redirect } from "next/navigation"
 
 const formSchema = z.object({
     name: z.string().nonempty(),
-    city: z.string().optional(),
-    location: z.tuple([z.string(), z.string().optional()]).optional(),
-    pro: z.string(),
-    ipi: z.number().optional(),
-    isni: z.string()
+    spotifyLink: z.string().optional(),
+    appleMusicLink: z.string().optional(),
+    pro: z.string().optional(),
+    ipi: z.string().optional(),
+    isni: z.string().optional()
 });
 
 export default function CreateArtist() {
-    const [countryName, setCountryName] = useState('')
-    const [stateName, setStateName] = useState('')
     const pros = [
+        { label: "None", value: "" },
         { label: "AllTrack (US)", value: "AllTrack" },
         { label: "ASCAP (US)", value: "ASCAP" },
         { label: "BMI (US)", value: "BMI" },
@@ -72,19 +70,34 @@ export default function CreateArtist() {
         { label: "Re:Sound (CA)", value: "Re:Sound" },
         { label: "CMRRA (CA)", value: "CMRRA" },
     ]
-    const form = useForm ({ resolver: zodResolver(formSchema) })
-    function onSubmit(values) {
+    const form = useForm ({
+            resolver: zodResolver(formSchema),
+            defaultValues: { name: "", spotifyLink: "", appleMusicLink: "", pro: "", ipi: "", isni: "" }
+        })
+    // Clerk auth token
+    const { getToken } =  useAuth()
+    async function onSubmit(values) {
         try {
-            console.log(values);
-            toast(
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                    <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-                </pre>
-            );
-        } catch (error) {
-            console.error("Form submission error", error);
-            toast.error("Failed to submit the form. Please try again.");
+            // Submit logic
+            const token = await getToken()
+            const options = {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({values}),
+                cache: "no-store",
+            }
+            const response = await fetch(`/api/artists/create`, options)
+            if (!response.ok) throw new Error ("API returned bad response.")
+            toast("Your request was successfully processed.")
+        } catch (err) {
+            // Error handler
+            console.error("Form submission error", err)
+            toast.error("There was an error processing your request.")
         }
+        redirect("/catalog/artists")
     }
 return (
     <Form {...form}>
@@ -98,7 +111,7 @@ return (
                             <FormItem>
                                 <FormLabel>Artist Name</FormLabel>
                                 <FormControl>
-                                    <Input placeholder=""type="text"{...field}/>
+                                    <Input placeholder="" type="text" {...field}/>
                                 </FormControl>
                                 <FormDescription>This is the name that will appear in stores</FormDescription>
                                 <FormMessage/>
@@ -111,15 +124,15 @@ return (
                 <div className="col-span-6">
                     <FormField
                         control={form.control}
-                        name="city"
+                        name="spotifyLink"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>City</FormLabel>
+                                <FormLabel>Spotify Profile</FormLabel>
                                 <FormControl>
                                     <Input placeholder="" type="text" {...field}/>
                                 </FormControl>
-                                <FormDescription>Current location of the artist</FormDescription>
-                                <FormMessage />
+                                <FormDescription>Used to match to the correct Spotify artist profile</FormDescription>
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />
@@ -127,24 +140,15 @@ return (
                 <div className="col-span-6">
                     <FormField
                         control={form.control}
-                        name="location"
+                        name="appleMusicLink"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Country/State</FormLabel>
+                                <FormLabel>Apple Music Profile</FormLabel>
                                 <FormControl>
-                                    <LocationSelector
-                                        onCountryChange={(country) => {
-                                            setCountryName(country?.name || '')
-                                            form.setValue(field.name, [country?.name || '', stateName || ''])
-                                        }}
-                                        onStateChange={(state) => {
-                                            setStateName(state?.name || '')
-                                            form.setValue(field.name, [form.getValues(field.name)[0] || '', state?.name || ''])
-                                        }}
-                                    />
+                                    <Input placeholder=""type="text"{...field}/>
                                 </FormControl>
-                                <FormDescription>Select artist's country and state</FormDescription>
-                                <FormMessage />
+                                <FormDescription>Used to match to the correct Apple Music artist profile</FormDescription>
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />
@@ -222,7 +226,7 @@ return (
                             <FormItem>
                                 <FormLabel>IPI</FormLabel>
                                 <FormControl>
-                                    <Input placeholder=""type="number"{...field} />
+                                    <Input placeholder="" type="number" {...field} />
                                 </FormControl>
                                 <FormDescription>Interested party identifier (IPI)</FormDescription>
                                 <FormMessage />

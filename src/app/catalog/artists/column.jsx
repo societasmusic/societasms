@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Disc3, MoreHorizontal } from "lucide-react"
+import { Disc3, Guitar, MoreHorizontal } from "lucide-react"
 import { ArrowUpDown } from "lucide-react"
 import Link from "next/link"
 import { record } from "zod"
@@ -19,13 +19,13 @@ export const columns = [
             )
         },
         cell: ({ row }) => {
-            const label = row.original
+            const artist = row.original
             return (
                 <div className="flex gap-3 items-center">
                     <div className="bg-blue-500/10 text-blue-500 h-10 w-10 flex items-center justify-center">
-                        <Disc3/>
+                        <Guitar/>
                     </div>  
-                    {label.name}
+                    {artist.name}
                 </div>
             )
         }
@@ -51,7 +51,7 @@ export const columns = [
             return (<div className="px-6">ACTIONS</div>)
         },
         cell: ({ row }) => {
-            const recordlabel = row.original
+            const artist = row.original
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -62,12 +62,12 @@ export const columns = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(recordlabel._id)}>
-                            Copy record label ID
+                        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(artist._id)}>
+                            Copy artist ID
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <Link href={`/catalog/labels/${recordlabel._id}`}>
-                            <DropdownMenuItem className="cursor-pointer">View record label</DropdownMenuItem>
+                        <Link href={`/catalog/artists/${artist._id}`}>
+                            <DropdownMenuItem className="cursor-pointer">View artist</DropdownMenuItem>
                         </Link>
                     </DropdownMenuContent>
                 </DropdownMenu>

@@ -9,8 +9,8 @@ export default function Catalog() {
         { title: "Catalog", href: "/catalog", currentPage: true },
     ]
     const cards = [
-        { href: "/catalog/labels", icon: Disc3, title: "Record Labels", description: "Manage your inventory, create new releases, request updates, and manage metadata."},
-        { href: "/catalog/artists", icon: Guitar, title: "Artists", description: "Manage your inventory, create new releases, request updates, and manage metadata."},
+        { href: "/catalog/labels", icon: Disc3, title: "Record Labels", description: "Create and manage active record labels, imprints, and view related information."},
+        { href: "/catalog/artists", icon: Guitar, title: "Artists", description: "Create and manage active performers, songwriters, composers, producers, and other contributors."},
         { href: "/catalog/recordings", icon: FileMusic, title: "Sound Recordings", description: "Manage your inventory, create new releases, request updates, and manage metadata."},
         { href: "/catalog/releases", icon: DiscAlbum, title: "Releases", description: "Manage your inventory, create new releases, request updates, and manage metadata."},
     ]
