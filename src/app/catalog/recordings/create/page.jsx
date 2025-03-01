@@ -3,7 +3,7 @@ import AppForm from "@/components/app-form"
 import { countries } from "@/data/countries"
 import { genres } from "@/data/genres"
 import { languages } from "@/data/languages"
-import { Info } from "lucide-react"
+import { Info, TextCursorInput } from "lucide-react"
 
 export default function CreateNewSoundRecording() {
     const crumbs = [
@@ -41,6 +41,21 @@ export default function CreateNewSoundRecording() {
             value: "",
             variant: "Input",
             colSpan: 6,
+            options: [],
+        },
+        {
+            checked: true,
+            description: "Must be in .wav format and less than 50MB",
+            disabled: false,
+            label: "Upload Audio File",
+            name: "audio",
+            placeholder: "",
+            required: true,
+            rowIndex: 0,
+            type: "",
+            value: "",
+            variant: "Audio Upload",
+            colSpan: 12,
             options: [],
         },
         {
